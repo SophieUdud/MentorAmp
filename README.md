@@ -1,4 +1,4 @@
-# SalesInsight
+# MentorAmp
 
 The intent behind this document is to give general guidelines to github contributors, reviewers and approvers of this repository. The ‘master’ branch will be blocked by default, you need two code reviewers to approve your code before you can merge pull requests into ‘master’ branch.
 
