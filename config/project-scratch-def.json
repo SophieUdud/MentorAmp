@@ -1,0 +1,12 @@
+{
+  "orgName": "Developer Scratch Org",
+  "edition": "Partner Developer",
+  "hasSampleData": true,
+  "features": ["API", "DebugApex", "SessionIdInLogEnabled", "RecordTypes"],
+  "settings": {
+    "apexSettings": {
+      "enableApexCtrlImplicitWithSharingPref": true,
+      "enableAuraApexCtrlAuthUserAccessCheckPref": true
+    }
+  }
+}
