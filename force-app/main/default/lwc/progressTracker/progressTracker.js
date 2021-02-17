@@ -4,7 +4,7 @@ import { refreshApex } from '@salesforce/apex';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export default class ModalPopupLWC extends LightningElement {
+export default class ProgressTracker extends LightningElement {
 
     renderedCallback() {
         if (this.isTrackerOpen) {
