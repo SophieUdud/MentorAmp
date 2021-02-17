@@ -12,7 +12,7 @@ export default class ProgressTracker extends LightningElement {
         }
     }
 
-    isTrackerOpen = true;
+    isTrackerOpen = false;
     isFormOpen = false;
 
     openTracker() {
