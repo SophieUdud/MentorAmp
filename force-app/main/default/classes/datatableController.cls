@@ -30,9 +30,13 @@ public with sharing class datatableController {
 
     public static Id getProgressTracker () {
         Id currentUserId = UserInfo.getUserId();
-        MentorAmp_User__c mtUser = [SELECT Id, Name, User__c, Progress_Tracker__c FROM MentorAmp_User__c WHERE User__c = :currentUserId];
-        Id pgTrackId = mtUser.Progress_Tracker__c;
-        return pgTrackId;
+        List<MentorAmp_User__c> mtUser = [SELECT Id, Name, User__c, Progress_Tracker__c FROM MentorAmp_User__c WHERE User__c = :currentUserId];
+        if (mtUser.size() != 0) {
+            Id pgTrackId = mtUser[0].Progress_Tracker__c;
+        	return pgTrackId;
+        } else {
+            return '';
+        }
     }
 
     @AuraEnabled
