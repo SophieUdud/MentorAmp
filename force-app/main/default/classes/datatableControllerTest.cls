@@ -32,7 +32,7 @@ public class datatableControllerTest {
         catList.add(cat2);
         insert catList;
         
-        System.debug(datatableController.updateCategories(catList));
+        System.assertEquals('Success: categories updated successfully', datatableController.updateCategories(catList));
     }
     
     @isTest
