@@ -8,15 +8,26 @@ export default class ModalPopupLWC extends LightningElement {
 
     get options() {
         return [
-            { label: 'Cooking', value: 'Cooking'},
-            { label: 'Diving', value: 'Diving' },
-            { label: 'Martial Arts', value: 'Martial Arts' },
-            { label: 'Coding', value: 'Coding' },
-            { label: 'Finances', value: 'Finances' },
-            { label: 'Soft skills', value: 'Soft skills' },
-            { label: 'Meditation', value: 'Meditation' },
-            { label: 'Creative Writting', value: 'Creative Writting' },
-            { label: 'Photography', value: 'ja' },
+            { label: 'HTML - Beginner', value: 'HTML - Beginner'},
+            { label: 'HTML - Intermediate', value: 'HTML - Intermediate' },
+            { label: 'Java - Beginner', value: 'Java - Beginner' },
+            { label: 'Java - Intermediate', value: 'Java - Intermediate' },
+            { label: 'Python - Beginner', value: 'Python - Beginner' },
+            { label: 'Python - Intermediate', value: 'Python - Intermediate' },
+            { label: 'Time management', value: 'Time management' },
+            { label: 'Flexibility', value: 'Flexibility' },
+            { label: 'Taking responsibility', value: 'Taking responsibility' },
+            { label: 'Creative thinking', value: 'Creative thinking' },
+            { label: 'Conflict resolution', value: 'Conflit resolution' },
+            { label: 'Communication & listening skills', value: 'Communication & Listening Skills' },
+            { label: 'Team work', value: 'Team work' },
+            { label: 'Creative thinking', value: 'Creative thinking' },
+            { label: 'Excercise', value: 'Excercise' },
+            { label: 'Yoga', value: 'Yoga' },
+            { label: 'Implementing morr fuits and vieggies into diet', value: 'Implementing morr fuits and vieggies into diet' },
+            { label: 'Eating less junk food', value: 'Eating less junk food' },
+            { label: 'Healthy relationships with friends and family', value: 'Healthy relationships with friends and family' },
+            { label: 'Meditation', value: 'Meditation' }
         ];
     }
 
