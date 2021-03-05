@@ -57,16 +57,13 @@
 					<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3-mentor">
 						<!-- For Mentors -->
 						<template if:true={isMentor}>
-							<p>Enter the skills you feel comfortable providing mentorship on separated with a comma. (For example: "cooking, diving, meditation...")</p>
-							<div class="lgc-bg">
-								<lightning-input type="text"></lightning-input>
-							</div>
+							<p>Select the skills that you would feel comfortable providing mentorship on.</p>
 						</template>
 						<!-- For Mentees -->
 						<template if:false={isMentor}>
 							<p>Select the skills that you would like to receive mentorship on.</p>
-							<lightning-dual-listbox name="languages" source-label="Available" selected-label="Selected" options={options} onchange={handleChange}></lightning-dual-listbox>
 						</template>
+						<lightning-dual-listbox name="languages" source-label="Available" selected-label="Selected" options={options} onchange={handleChange}></lightning-dual-listbox>
 					</div>
 					<footer class="slds-modal__footer">
 						<button class="slds-button slds-button_neutral slds-float_left" onclick={closeModal} title="Cancel">Cancel</button>
