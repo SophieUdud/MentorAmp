@@ -1,3 +1,57 @@
 <template>
-    <p>Hello Main</p>
+
+    <!-- View when the user hasn't signed up yet -->
+    <template if:true={notSignedUp}>
+        <lightning-card>
+            <div class="slds-text-heading_medium slds-text-align_center slds-p-bottom_medium">Mentor Amp</div>
+            <p>-- Text to tell user to sign up --</p>
+            <p>-- Button to open the signup window --</p>
+        </lightning-card>
+    </template>
+
+    <!-- View when user is only a mentee -->
+    <template if:true={onlyMentee}>
+        <lightning-card>
+            <div class="slds-text-heading_medium slds-text-align_center slds-p-bottom_medium">Mentor Amp</div>
+            <h2>Mentee view</h2>
+            <p>-- Mentor's name --</p>
+            <p>-- Progress Tracker here --</p>
+            <p>-- Button to sign up as a mentor --</p>
+        </lightning-card>
+    </template>
+
+    <!-- View when user is only a mentor -->
+    <template if:true={onlyMentor}>
+        <lightning-card>
+            <div class="slds-text-heading_medium slds-text-align_center slds-p-bottom_medium">Mentor Amp</div>
+            <h2>Mentor view</h2>
+            <p>-- Mentee's name --</p>
+            <p>-- Progress Tracker here --</p>
+            <p>-- Button to sign up as a mentee --</p>
+        </lightning-card>
+    </template>
+
+    <!-- View when user is both a mentee and mentor -->
+    <template if:true={both}>
+        <lightning-card>
+            <div class="slds-text-heading_medium slds-text-align_center slds-p-bottom_medium">Mentor Amp</div>
+            <lightning-combobox
+                name="selectViews"
+                value={value}
+                placeholder="Select Progress2"
+                options={options}
+                onchange={changeView} 
+                class="viewPicklist">
+            </lightning-combobox>
+            <!-- Mentee view chosen from picklist -->
+            <template if:true={showMenteeView}>
+                <p>-- Showing mentee view --</p>
+            </template>
+            <!-- Mentor view chosen from picklist -->
+            <template if:true={showMentorView}>
+                <p>-- Showing mentor view --</p>
+            </template>
+        </lightning-card>
+    </template>
+
 </template>
