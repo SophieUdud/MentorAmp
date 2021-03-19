@@ -1,47 +1,75 @@
 <template>
 
+    <c-progress-tracker onrefresh={refreshCategories}></c-progress-tracker>
+    <c-signup onrefresh={refreshView}></c-signup>
+
     <!-- View when the user hasn't signed up yet -->
     <template if:true={notSignedUp}>
         <lightning-card>
-            <div class="slds-text-heading_medium slds-text-align_center slds-p-bottom_medium">Mentor Amp</div>
-            <p>-- Text to tell user to sign up --</p>
-            <p>-- Button to open the signup window --</p>
+            <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
+            <p class="slds-text-align_center slds-p-around_small italic">Commitments are a way to live powerfully.</br>When we commit and complete,</br>we receive tremendous energy from the Universe.</p>
+            <p class="slds-text-align_center slds-p-around_small italic">Get started with the MentorAmp Process!</p>
+            <lightning-button label="Join Now" title="Join Now" variant="brand" onclick={openSignup} class="slds-align_absolute-center slds-m-around_small"></lightning-button>
         </lightning-card>
     </template>
 
     <!-- View when user is only a mentee -->
     <template if:true={onlyMentee}>
         <lightning-card>
-            <div class="slds-text-heading_medium slds-text-align_center slds-p-bottom_medium">Mentor Amp</div>
-            <h2>Mentee view</h2>
-            <p>-- Mentor's name --</p>
-            <p>-- Progress Tracker here --</p>
-            <p>-- Button to sign up as a mentor --</p>
+            <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
+            <p class="slds-m-around_small slds-text-heading_small">Mentor: {mentorName.data}</p>
+
+            <!-- <div class="headline"> -->
+                <lightning-combobox
+                    name="selectWeek"
+                    label="Current Week"
+                    value={currentWeek.data}
+                    options={weekOptions}
+                    onchange={changeWeek} 
+                    class="picklists slds-m-around_medium">
+                </lightning-combobox>
+            <!-- </div> -->
+
+            <div class="slds-p-around_medium">
+                <lightning-datatable
+                    key-field="Id"
+                    data={menteeCategories.data}
+                    columns={columns}
+                    column-widths-mode="auto"
+                    hide-checkbox-column
+                    show-row-number-column="false">
+                </lightning-datatable>
+            </div>
+
+            <div class="buttonLine">
+                <lightning-button label="Update Progress" title="UpdateProgress" variant="brand" onclick={openTracker} class="slds-p-around_medium"></lightning-button>
+                <lightning-button label="Sign Up as a Mentor" title="Sign Up as a Mentor" onclick={signupAsMentor} class="slds-p-around_medium"></lightning-button>
+            </div>
         </lightning-card>
     </template>
 
     <!-- View when user is only a mentor -->
     <template if:true={onlyMentor}>
         <lightning-card>
-            <div class="slds-text-heading_medium slds-text-align_center slds-p-bottom_medium">Mentor Amp</div>
-            <h2>Mentor view</h2>
-            <p>-- Mentee's name --</p>
-            <p>-- Progress Tracker here --</p>
-            <p>-- Button to sign up as a mentee --</p>
+            <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
+            <h2 class="slds-m-around_small">Mentor view</h2>
+            <p class="slds-m-around_small">Mentee's name: {menteeName.data}</p>
+            <p class="slds-m-around_small">Mentee's Progress:</p>
+            <p class="slds-m-around_small">-- Progress Tracker here --</p>
+            <lightning-button label="Sign Up as a Mentee" title="Sign Up as a Mentee" onclick={signupAsMentee} class="slds-m-around_small"></lightning-button>
         </lightning-card>
     </template>
 
     <!-- View when user is both a mentee and mentor -->
     <template if:true={both}>
         <lightning-card>
-            <div class="slds-text-heading_medium slds-text-align_center slds-p-bottom_medium">Mentor Amp</div>
+            <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
             <lightning-combobox
                 name="selectViews"
-                value={value}
-                placeholder="Select Progress2"
-                options={options}
+                value={viewValue}
+                options={viewOptions}
                 onchange={changeView} 
-                class="viewPicklist">
+                class="picklists">
             </lightning-combobox>
             <!-- Mentee view chosen from picklist -->
             <template if:true={showMenteeView}>

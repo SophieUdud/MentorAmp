@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, api } from 'lwc';
 import createCategory from '@salesforce/apex/datatableController.createCategory';
 import { refreshApex } from '@salesforce/apex';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
@@ -15,11 +15,13 @@ export default class ProgressTracker extends LightningElement {
     isTrackerOpen = false;
     isFormOpen = false;
 
+    @api
     openTracker() {
         this.isTrackerOpen = true;
     }
     closeTracker() {
         this.isTrackerOpen = false;
+        this.dispatchEvent(new CustomEvent('refresh'));
     }
 
     openForm() {
