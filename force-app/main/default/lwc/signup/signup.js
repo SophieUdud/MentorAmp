@@ -1,5 +1,4 @@
 import { LightningElement, track, api } from 'lwc';
-import signupAsMentee from '@salesforce/apex/signupController.signupAsMentee';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ModalPopupLWC extends LightningElement {
@@ -50,35 +49,11 @@ export default class ModalPopupLWC extends LightningElement {
         this.isModalOpen = false;
     }
 
-    /*submitDetails() {
+    submitDetails() {
         // to close modal set isModalOpen tarck value as false
         //Add your code to call apex method or do some processing
 
         this.isModalOpen = false;
-    }*/
-
-    async submitDetails() {
-        await signupAsMentee({})
-        .then(result => {
-            /*this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Success',
-                    message: 'Successfully signed up as a mentee.',
-                    variant: 'success'
-                })
-            );*/
-            this.dispatchEvent(new CustomEvent('refresh'));
-            this.isModalOpen = false;
-                
-       }).catch(error => {
-           this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Error during signup. Please try again later.',
-                    message: error.body.message,
-                    variant: 'error'
-                })
-            );
-        });
     }
 
     goBackToStepOne() {

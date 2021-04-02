@@ -46,35 +46,57 @@ public inherited sharing class mainComponentController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Category__c> getMenteeCategories() {
+    public static List<Category__c> getCategories(Boolean showingMenteeView, Boolean showingMentorView) {
         Id currentUserId = UserInfo.getUserId();
         Id menteeRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentee').getRecordTypeId();
-        MentorAmp_User__c mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
+        Id mentorRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentor').getRecordTypeId();
+        MentorAmp_User__c mentee = new MentorAmp_User__c();
+        if (showingMenteeView == true && showingMentorView == false) {
+            mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
+        } else if (showingMenteeView == false && showingMentorView == true) {
+            MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
+            mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
+        }
         List<Category__c> categories = [
-            SELECT Id, Name, Weekly_Goal__c, Week_1__c, Week_2__c, Week_3__c, Week_4__c, Week_5__c, Week_6__c, Week_7__c, Week_8__c
-            FROM Category__c
-            WHERE Progress_Tracker__c = :mentee.Progress_Tracker__c
-            WITH SECURITY_ENFORCED
-        ];
+                SELECT Id, Name, Weekly_Goal__c, Week_1__c, Week_2__c, Week_3__c, Week_4__c, Week_5__c, Week_6__c, Week_7__c, Week_8__c
+                FROM Category__c
+                WHERE Progress_Tracker__c = :mentee.Progress_Tracker__c
+                WITH SECURITY_ENFORCED
+            ];
         return categories;
+        
     }
 
     @AuraEnabled(cacheable=true)
-    public static String getCurrentWeek () {
+    public static String getCurrentWeek (Boolean showingMenteeView, Boolean showingMentorView) {
         Id currentUserId = UserInfo.getUserId();
         Id menteeRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentee').getRecordTypeId();
-        List<MentorAmp_User__c> currentMentees = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId, MentorAmp_User__c FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
-        Progress_Tracker__c tracker = [SELECT Id, Name, Current_Week__c FROM Progress_Tracker__c WHERE Id = :currentMentees[0].Progress_Tracker__c];
+        Id mentorRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentor').getRecordTypeId();
+        MentorAmp_User__c mentee = new MentorAmp_User__c();
+        if (showingMenteeView == true && showingMentorView == false) {
+            mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
+        } else if (showingMenteeView == false && showingMentorView == true) {
+            MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
+            mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
+        }
+        Progress_Tracker__c tracker = [SELECT Id, Name, Current_Week__c FROM Progress_Tracker__c WHERE Id = :mentee.Progress_Tracker__c];
         String currentWeek = tracker.Current_Week__c;
         return currentWeek;
     }
 
     @AuraEnabled
-    public static String updateCurrentWeek (String newWeek) {
+    public static String updateCurrentWeek (String newWeek, Boolean showingMenteeView, Boolean showingMentorView) {
         Id currentUserId = UserInfo.getUserId();
         Id menteeRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentee').getRecordTypeId();
-        List<MentorAmp_User__c> currentMentees = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId, MentorAmp_User__c FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
-        Progress_Tracker__c tracker = [SELECT Id, Name, Current_Week__c FROM Progress_Tracker__c WHERE Id = :currentMentees[0].Progress_Tracker__c];
+        Id mentorRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentor').getRecordTypeId();
+        MentorAmp_User__c mentee = new MentorAmp_User__c();
+        if (showingMenteeView == true && showingMentorView == false) {
+            mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
+        } else if (showingMenteeView == false && showingMentorView == true) {
+            MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
+            mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
+        }
+        Progress_Tracker__c tracker = [SELECT Id, Name, Current_Week__c FROM Progress_Tracker__c WHERE Id = :mentee.Progress_Tracker__c];
         tracker.Current_Week__c = newWeek;
         try {
             update tracker;

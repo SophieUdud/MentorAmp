@@ -3,7 +3,7 @@ import { refreshApex } from '@salesforce/apex';
 import getMentorAmpUser from '@salesforce/apex/mainComponentController.getMentorAmpUser';
 import getMentorName from '@salesforce/apex/mainComponentController.getMentorName';
 import getMenteeName from '@salesforce/apex/mainComponentController.getMenteeName';
-import getMenteeCategories from '@salesforce/apex/mainComponentController.getMenteeCategories';
+import getCategories from '@salesforce/apex/mainComponentController.getCategories';
 import getCurrentWeek from '@salesforce/apex/mainComponentController.getCurrentWeek';
 import updateCurrentWeek from '@salesforce/apex/mainComponentController.updateCurrentWeek';
 
@@ -88,16 +88,13 @@ export default class Main extends LightningElement {
     }
 
     notSignedUp = false;
-    onlyMentee = false;
-    onlyMentor = false;
-    both = false;
-
     showMenteeView = false;
     showMentorView = false;
+    both = false;
 
     columns = '';
 
-    @wire(getMenteeCategories, {})
+    @wire(getCategories, { showingMenteeView: '$showMenteeView', showingMentorView: '$showMentorView' })
     menteeCategories;
 
     refreshCategories () {
@@ -109,9 +106,9 @@ export default class Main extends LightningElement {
         if (data == 'notSignedUp') {
             this.notSignedUp = true;
         } else if (data == 'onlyMentee') {
-            this.onlyMentee = true;
+            this.showMenteeView = true;
         } else if (data == 'onlyMentor') {
-            this.onlyMentor = true;
+            this.showMentorView = true;
         } else if (data == 'both'){
             this.both = true;
             this.showMenteeView = true;
@@ -122,7 +119,7 @@ export default class Main extends LightningElement {
         console.log('refresh view7');
         //eval("$A.get('e.force:refreshView').fire();");
         //window.reload();
-        //refreshApex(this.onlyMentee);
+        //refreshApex(this.showMenteeView);
         location.reload();
     }
 
@@ -132,7 +129,7 @@ export default class Main extends LightningElement {
     @wire(getMenteeName, {})
     menteeName;
 
-    @wire(getCurrentWeek, {})
+    @wire(getCurrentWeek, { showingMenteeView: '$showMenteeView', showingMentorView: '$showMentorView' })
     currentWeek;
 
     get weekOptions() {
@@ -176,7 +173,7 @@ export default class Main extends LightningElement {
               this.columns = COLS8;
               break;
         };
-        updateCurrentWeek({ newWeek: week })
+        updateCurrentWeek({ newWeek: week, showingMenteeView: this.showMenteeView, showingMentorView: this.showMentorView })
             .then((result) => {
                 refreshApex(this.currentWeek);
             });
