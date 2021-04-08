@@ -116,7 +116,6 @@ export default class Main extends LightningElement {
     }
 
     refreshView() {
-        console.log('refresh view7');
         //eval("$A.get('e.force:refreshView').fire();");
         //window.reload();
         //refreshApex(this.showMenteeView);
@@ -186,7 +185,14 @@ export default class Main extends LightningElement {
         ];
     }
 
-    viewValue = 'mentee';
+    //viewValue = 'mentee';
+    get viewValue() {
+      if (this.showMenteeView) {
+        return 'mentee';
+      } else if (this.showMentorView) {
+        return 'mentor';
+      }
+    }
 
     changeView (event) {
         let view = event.detail.value;
@@ -199,8 +205,12 @@ export default class Main extends LightningElement {
         }
     }
 
-    openTracker () {
-        this.template.querySelector('c-progress-tracker').openTracker();
+    openTrackerAsMentee () {
+        this.template.querySelector('c-progress-tracker').openTrackerAsMentee();
+    }
+
+    openTrackerAsMentor () {
+        this.template.querySelector('c-progress-tracker').openTrackerAsMentor();
     }
 
     signupAsMentor () {

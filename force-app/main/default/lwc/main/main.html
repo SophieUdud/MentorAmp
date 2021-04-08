@@ -13,21 +13,20 @@
         </lightning-card>
     </template>
 
-    <template if:true={both}>
-        <lightning-combobox
-                name="selectViews"
-                value={viewValue}
-                options={viewOptions}
-                onchange={changeView} 
-                class="picklists">
-        </lightning-combobox>
-    </template>
-
     <!-- View when user is only a mentee -->
     <template if:true={showMenteeView}>
         <lightning-card>
             <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
-            <p class="slds-m-around_small slds-text-heading_small">Mentor: {mentorName.data}</p>
+            <template if:true={both}>
+                <lightning-combobox
+                        name="selectViews"
+                        value={viewValue}
+                        options={viewOptions}
+                        onchange={changeView} 
+                        class="picklists slds-m-around_medium">
+                </lightning-combobox>
+            </template>
+            <p class="slds-m-around_medium slds-text-heading_small">Mentor: {mentorName.data}</p>
 
             <lightning-combobox
                 name="selectWeek"
@@ -51,7 +50,7 @@
             </div>
 
             <div class="buttonLine">
-                <lightning-button label="Update Progress" title="UpdateProgress" variant="brand" onclick={openTracker} class="slds-p-around_medium"></lightning-button>
+                <lightning-button label="Update Progress" title="UpdateProgress" variant="brand" onclick={openTrackerAsMentee} class="slds-p-around_medium"></lightning-button>
                 <lightning-button label="Sign Up as a Mentor" title="Sign Up as a Mentor" onclick={signupAsMentor} class="slds-p-around_medium"></lightning-button>
             </div>
         </lightning-card>
@@ -63,7 +62,16 @@
     <template if:true={showMentorView}>
         <lightning-card>
             <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
-            <p class="slds-m-around_small slds-text-heading_small">Mentee: {menteeName.data}</p>
+            <template if:true={both}>
+                <lightning-combobox
+                        name="selectViews"
+                        value={viewValue}
+                        options={viewOptions}
+                        onchange={changeView} 
+                        class="picklists slds-m-around_medium">
+                </lightning-combobox>
+            </template>
+            <p class="slds-m-around_medium slds-text-heading_small">Mentee: {menteeName.data}</p>
 
             <lightning-combobox
                 name="selectWeek"
@@ -87,7 +95,7 @@
             </div>
 
             <div class="buttonLine">
-                <lightning-button label="Update Progress" title="UpdateProgress" variant="brand" onclick={openTracker} class="slds-p-around_medium"></lightning-button>
+                <lightning-button label="Update Progress" title="UpdateProgress" variant="brand" onclick={openTrackerAsMentor} class="slds-p-around_medium"></lightning-button>
                 <lightning-button label="Sign Up as a Mentee" title="Sign Up as a Mentee" onclick={signupAsMentee} class="slds-p-around_medium"></lightning-button>
             </div>
         </lightning-card>

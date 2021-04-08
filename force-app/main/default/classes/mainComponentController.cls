@@ -23,8 +23,8 @@ public inherited sharing class mainComponentController {
     public static String getMentorName () {
         Id currentUserId = UserInfo.getUserId();
         Id menteeRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentee').getRecordTypeId();
-        List<MentorAmp_User__c> currentMentees = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId, MentorAmp_User__c FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
-        List<MentorAmp_User__c> mentors = [SELECT Id, Name, Name__c FROM MentorAmp_User__c WHERE Id = :currentMentees[0].MentorAmp_User__c];
+        MentorAmp_User__c currentMentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId, MentorAmp_User__c FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
+        List<MentorAmp_User__c> mentors = [SELECT Id, Name, Name__c FROM MentorAmp_User__c WHERE Id = :currentMentee.MentorAmp_User__c];
         if (mentors.size() == 0) {
             return 'No mentor has been assigned yet';
         } else {
@@ -36,8 +36,8 @@ public inherited sharing class mainComponentController {
     public static String getMenteeName () {
         Id currentUserId = UserInfo.getUserId();
         Id mentorRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentor').getRecordTypeId();
-        List<MentorAmp_User__c> currentMentors = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId, MentorAmp_User__c FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
-        List<MentorAmp_User__c> mentees = [SELECT Id, Name, Name__c, MentorAmp_User__c FROM MentorAmp_User__c WHERE MentorAmp_User__c = :currentMentors[0].Id];
+        MentorAmp_User__c currentMentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId, MentorAmp_User__c FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
+        List<MentorAmp_User__c> mentees = [SELECT Id, Name, Name__c, MentorAmp_User__c FROM MentorAmp_User__c WHERE MentorAmp_User__c = :currentMentor.Id];
         if (mentees.size() == 0) {
             return 'No mentee has been assigned yet';
         } else {
@@ -61,7 +61,6 @@ public inherited sharing class mainComponentController {
                 SELECT Id, Name, Weekly_Goal__c, Week_1__c, Week_2__c, Week_3__c, Week_4__c, Week_5__c, Week_6__c, Week_7__c, Week_8__c
                 FROM Category__c
                 WHERE Progress_Tracker__c = :mentee.Progress_Tracker__c
-                WITH SECURITY_ENFORCED
             ];
         return categories;
         

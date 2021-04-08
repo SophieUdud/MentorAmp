@@ -14,16 +14,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-/*.headline {
-    display:flex;
-    justify-content: flex-end;
-}*/
-
-.full-width {
-    width: 100%;
-}
-
-.half-width {
-    width: 50%;
-}
