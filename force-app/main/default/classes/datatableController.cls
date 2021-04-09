@@ -46,8 +46,6 @@ public with sharing class datatableController {
 
     //get the Progress Tracker for the currently logged-in user, return empty string if there's no tracker yet
     public static Id getProgressTracker (Boolean getTrackerAsMentor) {
-    //public static Id getProgressTracker () {
-        //System.debug('getTrackerAsMentor: ' + getTrackerAsMentor);
         Id currentUserId = UserInfo.getUserId();
         Id menteeRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentee').getRecordTypeId();
         Id mentorRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentor').getRecordTypeId();
@@ -58,14 +56,6 @@ public with sharing class datatableController {
             MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
             mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
         }
-
-        /*List<MentorAmp_User__c> mtUser = [SELECT Id, Name, User__c, Progress_Tracker__c FROM MentorAmp_User__c WHERE User__c = :currentUserId];
-        if (mtUser.size() != 0) {
-            Id pgTrackId = mtUser[0].Progress_Tracker__c;
-        	return pgTrackId;
-        } else {
-            return '';
-        }*/
         return mentee.Progress_Tracker__c;
     }
 

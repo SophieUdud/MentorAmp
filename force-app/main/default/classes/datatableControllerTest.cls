@@ -18,7 +18,7 @@ public class datatableControllerTest {
             List<Category__c> categories = datatableController.getCategories();
             System.assert(categories.size() != 0);
         }
-    }
+    }*/
     
     @isTest
     public static void updateCategoriesTest() {
@@ -37,38 +37,24 @@ public class datatableControllerTest {
     
     @isTest
     public static void getProgressTrackerTest() {
-        List<User> userList = [SELECT Id, Name FROM User];
-        User testUser = userList[0];
+        TestFactory.insertTestData();
+        User testUser = [SELECT Id, Name FROM User WHERE UserName = 'mentoramp@testorg.com'];
+        MentorAmp_User__c firstMentee = [SELECT Id, Name__c, Progress_Tracker__c FROM MentorAmp_User__c WHERE Name__c = 'First Mentee'];    
+        MentorAmp_User__c secondMentee = [SELECT Id, Name__c, Progress_Tracker__c FROM MentorAmp_User__c WHERE Name__c = 'Second Mentee'];
         System.runAs(testUser) {
-            Progress_Tracker__c pgTrack = new Progress_Tracker__c();
-            insert pgTrack;
-            
-            MentorAmp_User__c newMtUser = new MentorAmp_User__c (Progress_Tracker__c = pgTrack.Id, User__c = testUser.Id);
-            insert newMtUser;
-            
-            List<MentorAmp_User__c> mtUser = [SELECT Id, Name FROM MentorAmp_User__c WHERE User__c = :testUser.Id];
-            if (mtUser.size() == 1) {
-                System.assertEquals(pgTrack.Id, datatableController.getProgressTracker());
-            } else {
-                System.assert(mtUser.size() > 1);
-            }
-            
+            System.assertEquals(firstMentee.Progress_Tracker__c, datatableController.getProgressTracker(false));
+            System.assertEquals(secondMentee.Progress_Tracker__c, datatableController.getProgressTracker(true));
         }
-        
     }
     
     @isTest
     public static void createCategoryTest() {
-        List<User> userList = [SELECT Id, Name FROM User];
-        User testUser = userList[0];
+        TestFactory.insertTestData();
+        User testUser = [SELECT Id, Name FROM User WHERE UserName = 'mentoramp@testorg.com'];
+        User testUser2 = [SELECT Id, Name FROM User WHERE UserName = 'mentoramp@testorg2.com'];
         System.runAs(testUser) {
-            Progress_Tracker__c pgTrack = new Progress_Tracker__c();
-            insert pgTrack;
-            
-            MentorAmp_User__c newMtUser = new MentorAmp_User__c (Progress_Tracker__c = pgTrack.Id, User__c = testUser.Id);
-            insert newMtUser;
-            
-            System.assertEquals('Success: category created successfully', datatableController.createCategory('Test name', 'Test goal'));
+            System.assertEquals('Success: category created successfully', datatableController.createCategory('Test mentee category', 'Test goal', false));
+            System.assertEquals('Success: category created successfully', datatableController.createCategory('Test mentor category', 'Test goal', true));
         }
     }
     
@@ -79,5 +65,5 @@ public class datatableControllerTest {
 		Category__c category = new Category__c (Name = 'Test Category', Progress_Tracker__c = pgTrack.Id);
         insert category;
         System.assertEquals('Success: categories deleted successfully', datatableController.deleteCategory(category.Id));
-    }*/
+    }
 }
