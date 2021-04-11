@@ -1,6 +1,6 @@
 {
   "orgName": "Developer Scratch Org",
-  "edition": "Partner Developer",
+  "edition": "Developer",
   "hasSampleData": true,
   "features": ["API", "DebugApex", "SessionIdInLogEnabled", "RecordTypes"],
   "settings": {
