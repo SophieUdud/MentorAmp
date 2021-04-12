@@ -1,8 +1,28 @@
-import { LightningElement,track } from 'lwc';
+import { LightningElement, track, api, wire } from "lwc";
+import { getRecord } from 'lightning/uiRecordApi';
+import getUserInfo from '@salesforce/apex/userInfoController.getUserInfo';
+
+// import MentorAmp_User from '@salesforce/schema/MentorAmp_User__c';
+// import Name from '@salesforce/schema/MentorAmp_User.Name__c';
+
+import USER_OBJECT from '@salesforce/schema/User';
 
 export default class ModalPopupLWC extends LightningElement {
-    @track isModalOpen = false;
+    @track isModalOpen = true;
     @track currentStep;
+
+    @wire(getUserInfo)
+    wiredUser({data, error}){
+        console.log('wiredUser: ', this.wiredUser);
+        if(data){
+            this.user = data;
+            this.error = undefined;
+        }
+        else if (error) {
+            this.error = error;
+            this.user = undefined;
+        }
+    }
     isMentor;
     _selected = [];
 
@@ -35,6 +55,7 @@ export default class ModalPopupLWC extends LightningElement {
         return this._selected.length ? this._selected : 'none';
     }
 
+    @api
     openModal() {
         // to open modal set isModalOpen tarck value as true
         this.isModalOpen = true;
@@ -63,7 +84,8 @@ export default class ModalPopupLWC extends LightningElement {
         this.currentStep = '2';
         this.isMentor = false;
         this.template.querySelector('div.stepOne').classList.add('slds-hide');
-        this.template.querySelector('div.stepTwo').classList.remove('slds-hide');
+        this.template.querySelector('div.stepTwo').classList.remove('slds-hide'); 
+        console.log('userInfo: ', this.wiredUser());   
     }
 
     goToStepTwoMentor() {
@@ -88,4 +110,5 @@ export default class ModalPopupLWC extends LightningElement {
     handleChange(e) {
         this._selected = e.detail.value;
     }
+
 }
