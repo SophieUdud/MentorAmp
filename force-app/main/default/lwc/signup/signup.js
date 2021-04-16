@@ -52,7 +52,6 @@ export default class ModalPopupLWC extends LightningElement {
     submitDetails() {
         // to close modal set isModalOpen tarck value as false
         //Add your code to call apex method or do some processing
-
         this.isModalOpen = false;
     }
 

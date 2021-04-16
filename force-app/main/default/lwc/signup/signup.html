@@ -58,8 +58,8 @@
 						<!-- For Mentees -->
 						<template if:false={isMentor}>
 							<p>Select the skills that you would like to receive mentorship on.</p>
-                        </template>
-                        <lightning-dual-listbox name="languages" source-label="Available" selected-label="Selected" options={options} onchange={handleChange}></lightning-dual-listbox>
+						</template>
+						<lightning-dual-listbox name="languages" source-label="Available" selected-label="Selected" options={options} onchange={handleChange}></lightning-dual-listbox>
 					</div>
 					<footer class="slds-modal__footer">
 						<button class="slds-button slds-button_neutral slds-float_left" onclick={closeModal} title="Cancel">Cancel</button>
