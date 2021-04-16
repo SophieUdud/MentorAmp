@@ -32,15 +32,12 @@ export default class Datatable extends LightningElement {
     
     @api refreshCategories () {
         refreshApex(this.categories);
-        console.log('openAsMentor: ' + this.openAsMentor);
-        console.log('categories: ' + this.categories.data);
     }
 
     columns = COLS;
     draftValues = [];
 
     @wire(getCategories, { getMentorCategories : '$openAsMentor' })
-    //@wire(getCategories, {})
     categories;
 
     rowToDelete = {};

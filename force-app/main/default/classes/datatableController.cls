@@ -4,9 +4,6 @@ public with sharing class datatableController {
     //if the tracker is opened from the mentor view, return all Categories for the Progress Tracker of the currently logged-in mentor's mentee
     @AuraEnabled(cacheable=true)
     public static List<Category__c> getCategories(Boolean getMentorCategories) {
-    //public static String getCategories(Boolean getMentorCategories) {
-    //public static String getCategories() {
-        System.debug('in getCategories');
         Id currentUserId = UserInfo.getUserId();
         Id menteeRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentee').getRecordTypeId();
         Id mentorRecordTypeId = Schema.SObjectType.MentorAmp_User__c.getRecordTypeInfosByName().get('Mentor').getRecordTypeId();
@@ -24,7 +21,6 @@ public with sharing class datatableController {
             WITH SECURITY_ENFORCED
         ];
         return categories;
-        //return 'hello';
     }
 
     //update the properties of the categories the user changed in the datatable (name, weekly goal, weekly tracking etc.)
@@ -62,7 +58,6 @@ public with sharing class datatableController {
     //add a new Category for the current user's Progress Tracker, populate the name and goal based on what the user entered on the frontend
     @AuraEnabled
     public static String createCategory (String name, String goal, Boolean createAsMentor) {
-        System.debug('in createCategory');
         Category__c category = new Category__c();
         category.Name = name;
         category.Weekly_Goal__c = goal;

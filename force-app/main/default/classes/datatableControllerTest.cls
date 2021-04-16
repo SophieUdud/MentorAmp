@@ -1,6 +1,7 @@
 @isTest
 public class datatableControllerTest {
     
+    //removed from now as the method that this test is testing needs to be fixed
     /*@isTest
     public static void getCategoriesTest() {
         List<User> userList = [SELECT Id, Name FROM User];

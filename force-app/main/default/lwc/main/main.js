@@ -116,9 +116,6 @@ export default class Main extends LightningElement {
     }
 
     refreshView() {
-        //eval("$A.get('e.force:refreshView').fire();");
-        //window.reload();
-        //refreshApex(this.showMenteeView);
         location.reload();
     }
 
@@ -185,7 +182,6 @@ export default class Main extends LightningElement {
         ];
     }
 
-    //viewValue = 'mentee';
     get viewValue() {
       if (this.showMenteeView) {
         return 'mentee';
