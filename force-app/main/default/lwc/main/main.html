@@ -1,4 +1,6 @@
 <template>
     <p>Hello Main</p>
-    <c-signup></c-signup>
+    <template if:true={isModalOpen}>
+        <c-signup></c-signup>
+    </template>
 </template>
