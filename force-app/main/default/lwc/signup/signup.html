@@ -1,8 +1,4 @@
 <template>
-	<!-- XXXXXFOR TESTING PURPOUSES lightning button for open modal window -->
-	<lightning-button variant="brand" label="Sign Up" title="Sign Up" onclick={openModal} class="slds-m-left_x-small"></lightning-button>
-	<!-- XXXXXFOR TESTING PURPOUSES ens of lightning button for open modal window -->
-
 	<!--Use template if:true to display/hide popup based on isModalOpen value-->
 	<template if:true={isModalOpen}>
 		<!-- Modal/Popup Box LWC starts here -->
@@ -24,7 +20,7 @@
 				<!-- Step 1 - Description -->
 				<div class="stepOne">
 					<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-						<p>This is where we describe what this app is about. text...text...text...text...text...text...text...text...text...text...text...</p>
+						<p class="slds-m-around_large slds-align_absolute-center">Join the MentorAmp community by singing in as a Mentor or as a Mentee</p>
 					</div>
 					<!-- Modal/Popup Box LWC footer starts here -->
 					<footer class="slds-modal__footer">

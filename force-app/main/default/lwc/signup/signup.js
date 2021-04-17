@@ -1,4 +1,5 @@
-import { LightningElement,track } from 'lwc';
+import { LightningElement, track, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ModalPopupLWC extends LightningElement {
     @track isModalOpen = false;
@@ -35,13 +36,14 @@ export default class ModalPopupLWC extends LightningElement {
         return this._selected.length ? this._selected : 'none';
     }
 
+    @api
     openModal() {
         // to open modal set isModalOpen tarck value as true
         this.isModalOpen = true;
         this.currentStep = '1';
         this.isMentor = false;
     }
-    
+
     closeModal() {
         // to close modal set isModalOpen tarck value as false
         this.isModalOpen = false;

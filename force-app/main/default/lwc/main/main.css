@@ -1,0 +1,16 @@
+.picklists {
+    width: 35%;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.title {
+    font-size: 18px;
+}
+
+.buttonLine {
+    display: flex;
+    justify-content: space-between;
+}
