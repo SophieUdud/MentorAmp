@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, api } from 'lwc';
 import createCategory from '@salesforce/apex/datatableController.createCategory';
 import { refreshApex } from '@salesforce/apex';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
@@ -14,12 +14,23 @@ export default class ProgressTracker extends LightningElement {
 
     isTrackerOpen = false;
     isFormOpen = false;
+    openAsMentor = false;
 
-    openTracker() {
+    @api
+    openTrackerAsMentee() {
+        this.openAsMentor = false;
         this.isTrackerOpen = true;
     }
+
+    @api
+    openTrackerAsMentor() {
+        this.openAsMentor = true;
+        this.isTrackerOpen = true;
+    }
+
     closeTracker() {
         this.isTrackerOpen = false;
+        this.dispatchEvent(new CustomEvent('refresh'));
     }
 
     openForm() {
@@ -29,6 +40,7 @@ export default class ProgressTracker extends LightningElement {
     closeForm() {
         this.isFormOpen = false;
         this.isTrackerOpen = true;
+        this.template.querySelector('c-datatable').refreshCategories();
     }
 
     nameInput = '';
@@ -42,7 +54,7 @@ export default class ProgressTracker extends LightningElement {
     }
 
     async addCategory() {
-        await createCategory({name: this.nameInput, goal: this.goalInput})
+        await createCategory({name: this.nameInput, goal: this.goalInput, createAsMentor: this.openAsMentor})
         .then(result => {
             this.dispatchEvent(
                 new ShowToastEvent({

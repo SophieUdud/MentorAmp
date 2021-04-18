@@ -1,3 +1,4 @@
+
 import { LightningElement, track, api, wire } from "lwc";
 import { getRecord } from 'lightning/uiRecordApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
@@ -7,12 +8,10 @@ import getMenteeRecordType from '@salesforce/apex/RecordTypeController.getMentee
 import getMentorRecordType from '@salesforce/apex/RecordTypeController.getMentorRecordType';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-import Name_FIELD from '@salesforce/schema/MentorAmp_User__c.Name__c';
-import Email_FIELD from '@salesforce/schema/MentorAmp_User__c.Email__c';
-import Phone_FIELD from '@salesforce/schema/MentorAmp_User__c.Phone__c';
-import RecordTypeId_FIELD from '@salesforce/schema/MentorAmp_User__c.RecordTypeId';
-
 import MentorUser_OBJECT from '@salesforce/schema/MentorAmp_User__c';
+
+import { LightningElement, track, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ModalPopupLWC extends LightningElement {
     @track isModalOpen = true;

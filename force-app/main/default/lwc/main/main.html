@@ -3,4 +3,104 @@
     <template if:true={isModalOpen}>
         <c-signup></c-signup>
     </template>
+  
+    <c-progress-tracker onrefresh={refreshCategories}></c-progress-tracker>
+    <c-signup onrefresh={refreshView}></c-signup>
+
+    <!-- View when the user hasn't signed up yet -->
+    <template if:true={notSignedUp}>
+        <lightning-card>
+            <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
+            <p class="slds-text-align_center slds-p-around_small italic">Commitments are a way to live powerfully.</br>When we commit and complete,</br>we receive tremendous energy from the Universe.</p>
+            <p class="slds-text-align_center slds-p-around_small italic">Get started with the MentorAmp Process!</p>
+            <lightning-button label="Join Now" title="Join Now" variant="brand" onclick={openSignup} class="slds-align_absolute-center slds-m-around_small"></lightning-button>
+        </lightning-card>
+    </template>
+
+    <!-- View when user is only a mentee -->
+    <template if:true={showMenteeView}>
+        <lightning-card>
+            <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
+            <template if:true={both}>
+                <lightning-combobox
+                        name="selectViews"
+                        value={viewValue}
+                        options={viewOptions}
+                        onchange={changeView} 
+                        class="picklists slds-m-around_medium">
+                </lightning-combobox>
+            </template>
+            <p class="slds-m-around_medium slds-text-heading_small">Mentor: {mentorName.data}</p>
+
+            <lightning-combobox
+                name="selectWeek"
+                label="Current Week"
+                value={currentWeek.data}
+                options={weekOptions}
+                onchange={changeWeek} 
+                class="picklists slds-m-around_medium">
+            </lightning-combobox>
+
+            <p class="slds-m-top_medium slds-m-left_medium">My Progress:</p>
+            <div class="slds-p-around_medium">
+                <lightning-datatable
+                    key-field="Id"
+                    data={menteeCategories.data}
+                    columns={columns}
+                    column-widths-mode="auto"
+                    hide-checkbox-column
+                    show-row-number-column="false">
+                </lightning-datatable>
+            </div>
+
+            <div class="buttonLine">
+                <lightning-button label="Update Progress" title="UpdateProgress" variant="brand" onclick={openTrackerAsMentee} class="slds-p-around_medium"></lightning-button>
+                <lightning-button label="Sign Up as a Mentor" title="Sign Up as a Mentor" onclick={signupAsMentor} class="slds-p-around_medium"></lightning-button>
+            </div>
+        </lightning-card>
+    </template>
+
+    <!-- View when user is only a mentor -->
+    <template if:true={showMentorView}>
+        <lightning-card>
+            <div class="slds-text-align_center slds-text-title_bold title">Mentor Amp</div>
+            <template if:true={both}>
+                <lightning-combobox
+                        name="selectViews"
+                        value={viewValue}
+                        options={viewOptions}
+                        onchange={changeView} 
+                        class="picklists slds-m-around_medium">
+                </lightning-combobox>
+            </template>
+            <p class="slds-m-around_medium slds-text-heading_small">Mentee: {menteeName.data}</p>
+
+            <lightning-combobox
+                name="selectWeek"
+                label="Current Week"
+                value={currentWeek.data}
+                options={weekOptions}
+                onchange={changeWeek} 
+                class="picklists slds-m-around_medium">
+            </lightning-combobox>
+
+            <p class="slds-m-top_medium slds-m-left_medium">My Mentee's Progress:</p>
+            <div class="slds-p-around_medium">
+                <lightning-datatable
+                    key-field="Id"
+                    data={menteeCategories.data}
+                    columns={columns}
+                    column-widths-mode="auto"
+                    hide-checkbox-column
+                    show-row-number-column="false">
+                </lightning-datatable>
+            </div>
+
+            <div class="buttonLine">
+                <lightning-button label="Update Progress" title="UpdateProgress" variant="brand" onclick={openTrackerAsMentor} class="slds-p-around_medium"></lightning-button>
+                <lightning-button label="Sign Up as a Mentee" title="Sign Up as a Mentee" onclick={signupAsMentee} class="slds-p-around_medium"></lightning-button>
+            </div>
+        </lightning-card>
+    </template>
+
 </template>
