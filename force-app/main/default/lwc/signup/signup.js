@@ -104,6 +104,7 @@ export default class ModalPopupLWC extends LightningElement {
             // Clear the user enter values
             this.user = {};   
             this.showNotification("Signup", "Successfully signed up!", 'success');
+            this.isSavedSuccess = true;   
         })
         .catch(error => {
             this.showNotification("Signup", error.message, "error");
@@ -181,8 +182,7 @@ export default class ModalPopupLWC extends LightningElement {
             message: message,
             variant: variant,
         });
-        this.isSavedSuccess = true;   
-
+        
         this.dispatchEvent(evt);
     }
 }
