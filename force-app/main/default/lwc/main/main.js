@@ -1,4 +1,3 @@
-import { LightningElement } from "lwc";
 import { LightningElement, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import getMentorAmpUser from '@salesforce/apex/mainComponentController.getMentorAmpUser';
@@ -9,9 +8,6 @@ import getCurrentWeek from '@salesforce/apex/mainComponentController.getCurrentW
 import updateCurrentWeek from '@salesforce/apex/mainComponentController.updateCurrentWeek';
 
 export default class Main extends LightningElement {
-    openSignup () {
-        this.template.querySelector("c-signup").openModal();
-    }
 
 const COLS1 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
