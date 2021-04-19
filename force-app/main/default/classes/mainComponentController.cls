@@ -55,7 +55,7 @@ public inherited sharing class mainComponentController {
             mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
         } else if (showingMenteeView == false && showingMentorView == true) {
             MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
-            mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
+            mentee = [SELECT Id, Name, MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
         }
         List<Category__c> categories = [
                 SELECT Id, Name, Weekly_Goal__c, Week_1__c, Week_2__c, Week_3__c, Week_4__c, Week_5__c, Week_6__c, Week_7__c, Week_8__c
@@ -76,7 +76,7 @@ public inherited sharing class mainComponentController {
             mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
         } else if (showingMenteeView == false && showingMentorView == true) {
             MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
-            mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
+            mentee = [SELECT Id, Name, MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
         }
         Progress_Tracker__c tracker = [SELECT Id, Name, Current_Week__c FROM Progress_Tracker__c WHERE Id = :mentee.Progress_Tracker__c];
         String currentWeek = tracker.Current_Week__c;
@@ -93,7 +93,7 @@ public inherited sharing class mainComponentController {
             mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
         } else if (showingMenteeView == false && showingMentorView == true) {
             MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
-            mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
+            mentee = [SELECT Id, Name, MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
         }
         Progress_Tracker__c tracker = [SELECT Id, Name, Current_Week__c FROM Progress_Tracker__c WHERE Id = :mentee.Progress_Tracker__c];
         tracker.Current_Week__c = newWeek;

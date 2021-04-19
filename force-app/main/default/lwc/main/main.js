@@ -9,50 +9,50 @@ import updateCurrentWeek from '@salesforce/apex/mainComponentController.updateCu
 
 const COLS1 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
-    { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
-    { label: 'Week 1', fieldName: 'mtAmp__Week_1__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
+    { label: 'Weekly Goal', fieldName: 'Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
+    { label: 'Week 1', fieldName: 'Week_1__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
 ];
 
 const COLS2 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
-    { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
-    { label: 'Week 2', fieldName: 'mtAmp__Week_2__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
+    { label: 'Weekly Goal', fieldName: 'Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
+    { label: 'Week 2', fieldName: 'Week_2__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
 ];
 
 const COLS3 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
-    { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
-    { label: 'Week 3', fieldName: 'mtAmp__Week_3__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
+    { label: 'Weekly Goal', fieldName: 'Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
+    { label: 'Week 3', fieldName: 'Week_3__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
 ];
 
 const COLS4 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
-    { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
-    { label: 'Week 4', fieldName: 'mtAmp__Week_4__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
+    { label: 'Weekly Goal', fieldName: 'Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
+    { label: 'Week 4', fieldName: 'Week_4__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
 ];
 
 const COLS5 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
-    { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
-    { label: 'Week 5', fieldName: 'mtAmp__Week_5__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
+    { label: 'Weekly Goal', fieldName: 'Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
+    { label: 'Week 5', fieldName: 'Week_5__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
 ];
 
 const COLS6 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
-    { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
-    { label: 'Week 6', fieldName: 'mtAmp__Week_6__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
+    { label: 'Weekly Goal', fieldName: 'Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
+    { label: 'Week 6', fieldName: 'Week_6__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
 ];
 
 const COLS7 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
-    { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
-    { label: 'Week 7', fieldName: 'mtAmp__Week_7__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
+    { label: 'Weekly Goal', fieldName: 'Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
+    { label: 'Week 7', fieldName: 'Week_7__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
 ];
 
 const COLS8 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
-    { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
-    { label: 'Week 8', fieldName: 'mtAmp__Week_8__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
+    { label: 'Weekly Goal', fieldName: 'Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
+    { label: 'Week 8', fieldName: 'Week_8__c', type: 'boolean', hideDefaultActions: true, initialWidth: 80, cellAttributes: { alignment: 'center' } }
 ];
 
 export default class Main extends LightningElement {

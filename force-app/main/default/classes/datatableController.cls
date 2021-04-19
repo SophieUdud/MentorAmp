@@ -12,7 +12,7 @@ public with sharing class datatableController {
             mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
         } else if (getMentorCategories) {
             MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
-            mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
+            mentee = [SELECT Id, Name, MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
         }
         List<Category__c> categories = [
             SELECT Id, Name, Weekly_Goal__c, Week_1__c, Week_2__c, Week_3__c, Week_4__c, Week_5__c, Week_6__c, Week_7__c, Week_8__c
@@ -50,7 +50,7 @@ public with sharing class datatableController {
             mentee = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :menteeRecordTypeId];
         } else if (getTrackerAsMentor) {
             MentorAmp_User__c mentor = [SELECT Id, Name, User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE User__c = :currentUserId AND RecordTypeId = :mentorRecordTypeId];
-            mentee = [SELECT Id, Name, mtAmp__MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE mtAmp__MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
+            mentee = [SELECT Id, Name, MentorAmp_User__c, Progress_Tracker__c, RecordTypeId FROM MentorAmp_User__c WHERE MentorAmp_User__c = :mentor.Id AND RecordTypeId = :menteeRecordTypeId];
         }
         return mentee.Progress_Tracker__c;
     }
