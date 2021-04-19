@@ -1,4 +1,3 @@
-
 import { LightningElement, track, api, wire } from "lwc";
 import { getRecord } from 'lightning/uiRecordApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
@@ -10,18 +9,17 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import MentorUser_OBJECT from '@salesforce/schema/MentorAmp_User__c';
 
-import { LightningElement, track, api } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-
 export default class ModalPopupLWC extends LightningElement {
-    @track isModalOpen = true;
-    @track currentStep;
-    @track userName;
-    @track userEmail;
-    @track userMobile; 
-    @track menteeRecordTypeId;
-    @track mentorRecordTypeId;
-    @track isSavedSuccess = true;
+    isModalOpen = false;
+    currentStep;
+    userName;
+    userEmail;
+    userMobile; 
+    menteeRecordTypeId;
+    mentorRecordTypeId;
+    isSavedSuccess = true;
+    isMentor;
+    _selected = [];
 
     @wire(getObjectInfo, {objectApiName: MentorUser_OBJECT})
     getRecordTypeId({data, error}){
@@ -35,7 +33,7 @@ export default class ModalPopupLWC extends LightningElement {
                     this.menteeRecordTypeId = value.recordTypeId;
                 }
             }
-        }else if(error){
+        } else if(error){
             this.showNotification("Signup", error.message, "error");
          }
       };
@@ -55,8 +53,6 @@ export default class ModalPopupLWC extends LightningElement {
             this.showNotification("Signup", error.message, "error");
         }
     }
-    isMentor;
-    _selected = [];
 
     get options() {
         return [
