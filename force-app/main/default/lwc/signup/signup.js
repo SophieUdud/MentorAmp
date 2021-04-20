@@ -3,8 +3,6 @@ import { getRecord } from 'lightning/uiRecordApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import getUserInfo from '@salesforce/apex/userInfoController.getUserInfo';
 import saveUserRecord from '@salesforce/apex/MentorUserController.saveUserRecord';
-import getMenteeRecordType from '@salesforce/apex/RecordTypeController.getMenteeRecordType';
-import getMentorRecordType from '@salesforce/apex/RecordTypeController.getMentorRecordType';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import MentorUser_OBJECT from '@salesforce/schema/MentorAmp_User__c';
