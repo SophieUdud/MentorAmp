@@ -7,8 +7,6 @@ import getCategories from '@salesforce/apex/mainComponentController.getCategorie
 import getCurrentWeek from '@salesforce/apex/mainComponentController.getCurrentWeek';
 import updateCurrentWeek from '@salesforce/apex/mainComponentController.updateCurrentWeek';
 
-export default class Main extends LightningElement {
-
 const COLS1 = [
     { label: 'Category', fieldName: 'Name', hideDefaultActions: true, wrapText: true },
     { label: 'Weekly Goal', fieldName: 'mtAmp__Weekly_Goal__c', hideDefaultActions: true, wrapText: true },
