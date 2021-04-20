@@ -118,6 +118,7 @@ export default class ModalPopupLWC extends LightningElement {
         user.Name__c= this.userName;
         user.Email__c = this.userEmail;
         user.Phone__c = this.userMobile;
+        user.Id = this.userId;
         if (this.isMentor) {
             user.RecordTypeId = this.mentorRecordTypeId;
         } else {
