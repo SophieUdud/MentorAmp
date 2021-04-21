@@ -1,11 +1,57 @@
-import { LightningElement, track, api } from 'lwc';
+import { LightningElement, track, api, wire } from "lwc";
+import { getRecord } from 'lightning/uiRecordApi';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import getUserInfo from '@salesforce/apex/userInfoController.getUserInfo';
+import saveUserRecord from '@salesforce/apex/MentorUserController.saveUserRecord';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
+import MentorUser_OBJECT from '@salesforce/schema/MentorAmp_User__c';
+
 export default class ModalPopupLWC extends LightningElement {
-    @track isModalOpen = false;
-    @track currentStep;
+    isModalOpen = false;
+    currentStep;
+    userName;
+    userEmail;
+    userMobile; 
+    menteeRecordTypeId;
+    mentorRecordTypeId;
+    isSavedSuccess = true;
     isMentor;
     _selected = [];
+
+    @wire(getObjectInfo, {objectApiName: MentorUser_OBJECT})
+    getRecordTypeId({data, error}){
+        if(data){
+            const recordTypeInfos = data.recordTypeInfos;
+
+            for (const [key, value] of Object.entries(recordTypeInfos)) {
+                if (value.name === "Mentor") {
+                    this.mentorRecordTypeId = value.recordTypeId;
+                } else if (value.name === "Mentee"){
+                    this.menteeRecordTypeId = value.recordTypeId;
+                }
+            }
+        } else if(error){
+            this.showNotification("Signup", error.message, "error");
+         }
+      };
+
+    /* Calls apex to get current user's info */
+    @wire(getUserInfo) getUser({data, error}){
+        if(data){
+            this.user = data;
+            this.userName = data.Name;
+            this.userEmail = data.Email;
+            this.userMobile = data.MobilePhone;
+            this.userId = data.Id;
+            this.error = undefined;
+        }
+        else if (error) {
+            this.error = error;
+            this.user = undefined;
+            this.showNotification("Signup", error.message, "error");
+        }
+    }
 
     get options() {
         return [
@@ -38,21 +84,48 @@ export default class ModalPopupLWC extends LightningElement {
 
     @api
     openModal() {
-        // to open modal set isModalOpen tarck value as true
+        // to open modal set isModalOpen track value as true
         this.isModalOpen = true;
         this.currentStep = '1';
         this.isMentor = false;
     }
 
+    @api
     closeModal() {
-        // to close modal set isModalOpen tarck value as false
+        // to close modal set isModalOpen track value as false
         this.isModalOpen = false;
     }
 
+    saveRecord(user)
+    {   
+        saveUserRecord({user : user})
+        .then(result => {
+            // Clear the user enter values
+            this.user = {};   
+            this.showNotification("Signup", "Successfully signed up!", 'success');
+            this.isSavedSuccess = true;   
+        })
+        .catch(error => {
+            this.showNotification("Signup", error.message, "error");
+        });
+    }
+
     submitDetails() {
-        // to close modal set isModalOpen tarck value as false
-        //Add your code to call apex method or do some processing
+        // The skills is not being saved at this time need design
+        // of how to handle saving skills
         this.isModalOpen = false;
+        let user = { 'sobjectType': 'MentorAmp_User__c' };
+        user.Name__c= this.userName;
+        user.Email__c = this.userEmail;
+        user.Phone__c = this.userMobile;
+        user.User__c = this.userId;
+        if (this.isMentor) {
+            user.RecordTypeId = this.mentorRecordTypeId;
+        } else {
+            user.RecordTypeId = this.menteeRecordTypeId;
+        }
+        this.saveRecord(user);
+        this.closeModal();
     }
 
     goBackToStepOne() {
@@ -65,7 +138,7 @@ export default class ModalPopupLWC extends LightningElement {
         this.currentStep = '2';
         this.isMentor = false;
         this.template.querySelector('div.stepOne').classList.add('slds-hide');
-        this.template.querySelector('div.stepTwo').classList.remove('slds-hide');
+        this.template.querySelector('div.stepTwo').classList.remove('slds-hide'); 
     }
 
     goToStepTwoMentor() {
@@ -81,6 +154,7 @@ export default class ModalPopupLWC extends LightningElement {
         this.template.querySelector('div.stepTwo').classList.remove('slds-hide');
     }
 
+    /* Get skill set */
     goToStepThree() {
         this.currentStep = '3';
         this.template.querySelector('div.stepTwo').classList.add('slds-hide');
@@ -89,5 +163,26 @@ export default class ModalPopupLWC extends LightningElement {
 
     handleChange(e) {
         this._selected = e.detail.value;
+    }
+
+    nameChange(event) {
+        this.userName= event.target.value;
+    }
+
+    emailChange(event) {
+        this.userEmail= event.target.value;
+    }
+    mobileChange(event) {
+        this.userMobile= event.target.value;
+    }
+
+    showNotification(title, message, variant) {
+        const evt = new ShowToastEvent({
+            title: title,
+            message: message,
+            variant: variant,
+        });
+        
+        this.dispatchEvent(evt);
     }
 }
