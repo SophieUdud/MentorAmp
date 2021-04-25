@@ -126,6 +126,7 @@ export default class ModalPopupLWC extends LightningElement {
         }
         this.saveRecord(user);
         this.closeModal();
+        this.dispatchEvent(new CustomEvent('refresh'));
     }
 
     goBackToStepOne() {
@@ -138,7 +139,7 @@ export default class ModalPopupLWC extends LightningElement {
         this.currentStep = '2';
         this.isMentor = false;
         this.template.querySelector('div.stepOne').classList.add('slds-hide');
-        this.template.querySelector('div.stepTwo').classList.remove('slds-hide'); 
+        this.template.querySelector('div.stepTwo').classList.remove('slds-hide');
     }
 
     goToStepTwoMentor() {
