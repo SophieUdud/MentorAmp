@@ -209,6 +209,10 @@ export default class Main extends LightningElement {
         this.template.querySelector('c-progress-tracker').openTrackerAsMentor();
     }
 
+    signupAsMentee () {
+        this.template.querySelector('c-signup').openModal();
+    }
+
     signupAsMentor () {
         this.template.querySelector('c-signup').openModal();
     }
